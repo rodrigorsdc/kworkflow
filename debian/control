@@ -1,0 +1,21 @@
+Source: kw
+Section: devel
+Priority: optional
+Maintainer: Rodrigo Carvalho <rodrigorsdc@gmail.com>
+Build-Depends: debhelper (>=11~),
+	       python-docutils
+Standards-Version: 4.1.4
+Homepage: https://github.com/kworkflow/kworkflow
+
+Package: kw
+Architecture: any
+Multi-Arch: foreign
+Depends: pulseaudio-utils, ${misc:Depends},
+	 ${shlibs:Depends}, qemu-system-x86,
+	 samba
+Suggests: fish
+Description: Inglorious kernel developer workflow scripts
+ kw is a set of scripts that
+ have mission to reduce the overhead
+ related with infrastructure project setup in
+ projects that have a similar workflow to the Linux Kernel.

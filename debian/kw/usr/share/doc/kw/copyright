@@ -1,0 +1,46 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+xUpstream-Name: kw
+Upstream-contact: Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>
+Source: https://github.com/kworkflow/kworkflow
+
+Files:     *
+Copyright: 2018-2019 Rodrigo Siqueira
+	   2018-2019 Matheus Tavares
+License:   GPL-2+
+
+Files:     debian/*
+Copyright: 2019 Rodrigo Carvalho
+License:   GPL-2+
+
+Files:     tests/samples/codestyle_check.c
+           tests/samples/codestyle_correct.c
+           tests/samples/codestyle_error.c
+           tests/samples/codestyle_warning.c
+Copyright: 2018 John Doe
+License:   GLP-2+
+ This file is used for codestyle checking.
+
+Files:     tests/samples/print_file_author_test_dir/code1.c
+           tests/samples/print_file_author_test_dir/code2.c
+Copyright: 2018 Bob Hilson
+           2018 John Doe
+License:   GPL-2+
+
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-2'.

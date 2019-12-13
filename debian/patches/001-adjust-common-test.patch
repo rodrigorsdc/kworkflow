@@ -1,0 +1,30 @@
+Description: adjust common test
+Author: Rodrigo Carvalho <rodrigorsdc@gmail.com>
+
+Because we modify kworkflow.config file, we should modify
+commons_test file
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: 2019-12-12
+
+--- kw-20191112.orig/tests/commons_test.sh
++++ kw-20191112/tests/commons_test.sh
+@@ -52,7 +52,7 @@ function testDefaultConfigFile
+       [ssh_port]="2222"
+       [mount_point]="/home/USERKW/p/mount"
+       [alert]="n"
+-      [sound_alert_command]="paplay INSTALLPATH/sounds/complete.wav &"
++      [sound_alert_command]="paplay /usr/share/kw/sounds/complete.wav &"
+       [visual_alert_command]="notify-send -i checkbox -t 10000 \"kw\" \"Command: \\\\\"\$COMMAND\\\\\" completed!\""
+     )
+ 
