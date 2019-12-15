@@ -1,5 +1,5 @@
 Source: kw
-Section: devel
+Section: misc
 Priority: optional
 Maintainer: Rodrigo Carvalho <rodrigorsdc@gmail.com>
 Build-Depends: debhelper (>=11~),
