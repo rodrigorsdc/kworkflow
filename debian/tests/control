@@ -1,0 +1,2 @@
+Tests: kw-basic-test
+Depends: kw, git, shunit2, fish

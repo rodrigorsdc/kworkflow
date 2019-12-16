@@ -1,0 +1,49 @@
+#!/bin/sh
+
+#set -e
+
+
+
+#git config --global http.sslVerify false
+#git clone --depth=1 https://github.com/torvalds/linux.git 2> /dev/null
+
+#cd linux
+
+test_codestyle()
+{
+    kw_c=$(kw codestyle)
+    assertEquals "$kw_c" "Neither the given path nor the working path is in a kernel tree."
+}
+
+test_maintainers()
+{
+    kw_m=$(kw maintainers)
+    assertEquals "$kw_m" "Neither the given path nor the working path is in a kernel tree."
+}
+
+test_explore()
+{
+    git init
+    echo "Debian -- O Sistema Operacional Universal" > simple.txt
+    git add simple.txt
+    kw_e=$(kw explore "Debian")
+    assertEquals "$kw_e" "simple.txt:1:Debian -- O Sistema Operacional Universal"
+}
+
+git config --global user.email "debian@debian.com"
+git config --global user.name "Debian SO"
+
+./run_tests.sh
+
+cd $AUTOPKGTEST_TMP
+
+. shunit2
+
+
+
+
+
+
+# kw codestyle drivers/staging/iio/meter/
+# kw maintainers drivers/staging/iio/accel/adis16240.c
+# kw explore adis1624ppp0
