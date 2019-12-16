@@ -17,58 +17,9 @@ Forwarded: <no|not-needed|url proving that it has been forwarded>
 Reviewed-By: <name and email of someone who approved the patch>
 Last-Update: 2019-12-12
 
-Index: kw-20191112/Makefile
-===================================================================
---- /dev/null
-+++ kw-20191112/Makefile
-@@ -0,0 +1,42 @@
-+PREFIX = ${DESTDIR}/usr
-+STDDIR = ${PREFIX}/share/kw
-+MANDIR = ${PREFIX}/share/man
-+ACDIR = ${PREFIX}/share/bash-completion/completions
-+
-+all:
-+	@echo "kworkflow is a shell script program. Try \"make install\""
-+
-+bash-autocomplete:
-+	@install -v -d ${ACDIR}
-+	@install -v -m 0755 -T src/bash_autocomplete.sh ${ACDIR}/kw
-+
-+install: bash-autocomplete
-+	@install -v -d ${MANDIR}/man1
-+	@install -v -d /etc/skel/.config/kw
-+	rst2man < documentation/man/kw.rst > ${MANDIR}/man1/kw.1
-+	@install -v -d ${STDDIR}/src
-+	@install -v -d ${STDDIR}/sounds
-+	@install -v -d ${STDDIR}/etc
-+	@install -v -d ${STDDIR}/deploy_rules
-+	@install -v -m 0644 src/* ${STDDIR}/src
-+	@chmod 755 ${STDDIR}/src/kw.fish
-+	@rm -v ${STDDIR}/src/bash_autocomplete.sh
-+	@install -v -m 0644 sounds/* ${STDDIR}/sounds
-+	@install -v -m 0644 etc/* ${STDDIR}/etc
-+	@cp -vr deploy_rules ${STDDIR}/deploy_rules
-+	@install -v kw ${STDDIR}
-+
-+remove-bash-autocomplete:
-+	@rm -vrf \
-+		${ACDIR}/kw
-+
-+uninstall: remove-bash-autocomplete
-+	@rm -vrf \
-+		${STDDIR} \
-+		${MANDIR}/man1/kw.1
-+
-+clean:
-+	@rm -vrf \
-+		build/
-+
-+.PHONY: build-man install uninstall
-Index: kw-20191112/etc/kworkflow.config
-===================================================================
---- kw-20191112.orig/etc/kworkflow.config
-+++ kw-20191112/etc/kworkflow.config
-@@ -37,7 +37,7 @@ qemu_path_image=/home/USERKW/p/virty.qco
+--- a/etc/kworkflow.config
++++ b/etc/kworkflow.config
+@@ -37,7 +37,7 @@
  alert=n
  
  # Command to run for sound completion alert
@@ -77,10 +28,8 @@ Index: kw-20191112/etc/kworkflow.config
  
  # Command to run for visual completion alert
  # Note: You may use $COMMAND, which will be replaced by the kw command
-Index: kw-20191112/kw
-===================================================================
---- kw-20191112.orig/kw
-+++ kw-20191112/kw
+--- a/kw
++++ b/kw
 @@ -1,10 +1,13 @@
  #!/bin/bash
  
@@ -98,7 +47,7 @@ Index: kw-20191112/kw
  config_files_path=${config_files_path:-"$HOME/.config/$EASY_KERNEL_WORKFLOW"}
  
  # Export external variables required by kworkflow
-@@ -168,4 +171,11 @@ function kw()
+@@ -168,4 +171,11 @@
    esac
  }
  
@@ -110,11 +59,9 @@ Index: kw-20191112/kw
 +fi
 +
  kw $@
-Index: kw-20191112/src/commons.sh
-===================================================================
---- kw-20191112.orig/src/commons.sh
-+++ kw-20191112/src/commons.sh
-@@ -59,7 +59,7 @@ function load_configuration()
+--- a/src/commons.sh
++++ b/src/commons.sh
+@@ -59,7 +59,7 @@
    local local_config_path=$PWD/kworkflow.config
  
    # First, load the global configuration
@@ -123,11 +70,9 @@ Index: kw-20191112/src/commons.sh
  
    # Second, check if has a local file and override values
    if [ -f $local_config_path ] ; then
-Index: kw-20191112/src/vm.sh
-===================================================================
---- kw-20191112.orig/src/vm.sh
-+++ kw-20191112/src/vm.sh
-@@ -101,7 +101,7 @@ function vm_ssh
+--- a/src/vm.sh
++++ b/src/vm.sh
+@@ -101,7 +101,7 @@
  
  function vm_prepare
  {
@@ -136,3 +81,50 @@ Index: kw-20191112/src/vm.sh
    local current_path=$PWD
    local ret=0
    say "Deploying with Ansible, this will take some time"
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,44 @@
++PREFIX = ${DESTDIR}/usr
++STDDIR = ${PREFIX}/share/kw
++MANDIR = ${PREFIX}/share/man
++ACDIR = ${PREFIX}/share/bash-completion/completions
++
++all:
++	@echo "kworkflow is a shell script program. Try \"make install\""
++
++bash-autocomplete:
++	@install -v -d ${ACDIR}
++	@install -v -m 0755 -T src/bash_autocomplete.sh ${ACDIR}/kw
++
++install: bash-autocomplete
++	@install -v -d ${MANDIR}/man1
++	rst2man < documentation/man/kw.rst > ${MANDIR}/man1/kw.1
++	@install -v -d ${STDDIR}/src
++	@install -v -d ${STDDIR}/sounds
++	@install -v -d ${STDDIR}/etc
++	@install -v -d ${STDDIR}/deploy_rules
++	@install -v -m 0644 src/* ${STDDIR}/src
++	@chmod 755 ${STDDIR}/src/kw.fish
++	@rm -v ${STDDIR}/src/bash_autocomplete.sh
++	@install -v -m 0644 sounds/* ${STDDIR}/sounds
++	@install -v -m 0644 etc/* ${STDDIR}/etc
++	@cp -vr deploy_rules ${STDDIR}/deploy_rules
++	@install -v kw ${STDDIR}
++	@install -v -d ${PREFIX}/bin
++
++remove-bash-autocomplete:
++	@rm -vrf \
++		${ACDIR}/kw
++
++uninstall: remove-bash-autocomplete
++	@rm -vrf \
++		${STDDIR} \
++		${MANDIR}/man1/kw.1 \
++		${PREFIX}/bin/kw
++
++
++clean:
++	@rm -vrf \
++		build/
++
++.PHONY: build-man install uninstall
